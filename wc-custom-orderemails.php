@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Custom orders status email to customer
+ * @author: Ameer <smartameer@icloud.com>
+ */
+
 if (!defined('ABSPATH')) {
     exit;
 }

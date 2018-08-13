@@ -3,16 +3,18 @@
 /**
  * Plugin Name: WooCommerce Custom Order Status
  * Description: Adds custom order status to WooCommerce.
- * Author: Smartameer <smartameer@icloud.com>
+ * Author: Ameer <smartameer@icloud.com>
  * Author URI: https://github.com/smartameer
  * Version: 1.0.1
- *
- * @author  smartameer
  */
 
 /**
- * Copyright 2018 Smartameer  (email: smartameer@icloud.com)
+ * Copyright 2018 Ameer  (email: smartameer@icloud.com)
  */
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 
     if ( ! class_exists( 'WC_CustomOrderStatuses' ) ) {
