@@ -1,14 +1,14 @@
-.order-status.status-readyfor-delivery {
+.order-status.status-readyfordelivery {
   background: #c8d7e1;
   color: #2e4453
 }
 
-.order-status.status-picked-service {
+.order-status.status-pickedservice {
   background: #80baff;
   color: #18232b;
 }
 
-.order-status.status-on-route {
+.order-status.status-onroute {
   background: #f8dda7;
   color: #94660c
 }

@@ -3,10 +3,15 @@
 /**
  * Plugin Name: WooCommerce Custom Order Status
  * Description: Adds custom order status to WooCommerce.
- * Author: Pradeep Patro
- * Version: 1.0
+ * Author: Smartameer <smartameer@icloud.com>
+ * Author URI: https://github.com/smartameer
+ * Version: 1.0.1
  *
- * @author    Pradeep Patro
+ * @author  smartameer
+ */
+
+/**
+ * Copyright 2018 Smartameer  (email: smartameer@icloud.com)
  */
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 
@@ -20,6 +25,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                 add_action( 'plugins_loaded', array( &$this, 'load_textdomain' ));
                 add_action( 'init', array( &$this, 'register_order_statuses' ));
                 add_filter( 'wc_order_statuses', array( &$this, 'add_to_order_statuses') );
+                add_action( 'init', array(&$this, 'init_emails'));
             }
 
             public function plugins_admin_init() {
@@ -32,7 +38,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
             }
 
             public function register_order_statuses() {
-                register_post_status( 'wc-readyfor-delivery', array(
+                register_post_status( 'wc-readyfordelivery', array(
                     'label'                     => __('Ready for Delivery', 'wc_custom_orderstatus'),
                     'public'                    => true,
                     'exclude_from_search'       => false,
@@ -40,7 +46,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                     'show_in_admin_status_list' => true,
                     'label_count'               => _n_noop( __('Ready for Delivery', 'wc_custom_orderstatus') . ' <span class="count">(%s)</span>', __('Ready for Delivery', 'wc_custom_orderstatus') . ' <span class="count">(%s)</span>' )
                 ) );
-                register_post_status( 'wc-picked-service', array(
+                register_post_status( 'wc-pickedservice', array(
                     'label'                     => __('Picked up by Delivery Service', 'wc_custom_orderstatus'),
                     'public'                    => true,
                     'exclude_from_search'       => false,
@@ -48,7 +54,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                     'show_in_admin_status_list' => true,
                     'label_count'               => _n_noop( __('Picked up by Delivery Service', 'wc_custom_orderstatus') . ' <span class="count">(%s)</span>', __('Picked up by Delivery Service', 'wc_custom_orderstatus') . ' <span class="count">(%s)</span>' )
                 ) );
-                register_post_status( 'wc-on-route', array(
+                register_post_status( 'wc-onroute', array(
                     'label'                     => __('On Route', 'wc_custom_orderstatus'),
                     'public'                    => true,
                     'exclude_from_search'       => false,
@@ -73,13 +79,32 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                 foreach ( $order_statuses as $key => $status ) {
                     $new_order_statuses[ $key ] = $status;
                     if ( 'wc-on-hold' === $key ) {
-                        $new_order_statuses['wc-readyfor-delivery'] = __('Ready for Delivery', 'wc_custom_orderstatus');
-                        $new_order_statuses['wc-picked-service'] = __('Picked up by Delivery Service', 'wc_custom_orderstatus');
-                        $new_order_statuses['wc-on-route'] = __('On Route', 'wc_custom_orderstatus');
+                        $new_order_statuses['wc-readyfordelivery'] = __('Ready for Delivery', 'wc_custom_orderstatus');
+                        $new_order_statuses['wc-pickedservice'] = __('Picked up by Delivery Service', 'wc_custom_orderstatus');
+                        $new_order_statuses['wc-onroute'] = __('On Route', 'wc_custom_orderstatus');
                         $new_order_statuses['wc-delivered'] = __('Delivered', 'wc_custom_orderstatus');
                     }
                 }
                 return $new_order_statuses;
+            }
+
+            public function init_emails() {
+                add_filter( 'woocommerce_email_actions', array(&$this, 'wc_custom_actions'));
+                add_filter( 'woocommerce_email_classes', array(&$this, 'wc_custom_orderemails' ));
+            }
+
+            public function wc_custom_actions ($actions) {
+                $actions[] = 'woocommerce_order_status_readyfordelivery';
+                $actions[] = 'woocommerce_order_status_pickedservice';
+                $actions[] = 'woocommerce_order_status_onroute';
+                $actions[] = 'woocommerce_order_status_delivered';
+                return $actions;
+            }
+
+            public function wc_custom_orderemails( $email_classes ) {
+                include plugin_dir_path(__FILE__) . 'wc-custom-orderemails.php';
+                $email_classes['WC_Custom_OrderEmails'] = new WC_Custom_OrderEmails();
+                return $email_classes;
             }
 
         }
