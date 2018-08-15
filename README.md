@@ -13,4 +13,6 @@ WooCommerce Custom Order Status
   - Table View of statuses
 
 
-![Admin Menu](https://i.imgur.com/nBg5opb.png)
+![List Status](https://i.imgur.com/EH6ZCAJ.png)
+![Update Status](https://i.imgur.com/U7cvOti.png)
+![Order with Status](https://i.imgur.com/2AuvdsD.png)
