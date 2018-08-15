@@ -5,7 +5,7 @@
  * Description: Adds custom order status to WooCommerce.
  * Author: Ameer <smartameer@icloud.com>
  * Author URI: https://github.com/smartameer
- * Version: 1.0.1
+ * Version: 1.0.2
  */
 
 /**
