@@ -1,9 +1,11 @@
 (function( $ ) {
     $(function() {
-        $('.custom-order-status input[type="color"]').on('change', function() {
-            var param = $(this).attr('param');
+        $('form[name="order-status-form"] input[type="color"]').on('change', function() {
             var property = $(this).attr('name');
-            $('mark.status-' + param).css(property, $(this).val());
+            $('mark.form-order-status').css(property, $(this).val());
+        });
+        $('form[name="order-status-form"] input[name="name"]').on('keyup', function() {
+            $('mark.form-order-status > span').text($(this).val());
         });
     });
 })( jQuery );
