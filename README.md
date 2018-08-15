@@ -9,3 +9,8 @@ WooCommerce Custom Order Status
   - Delivered
 
 ### Adding email sending for above status to customer (v1.0.1)
+  - Emails
+  - Table View of statuses
+
+
+![Admin Menu](https://imgur.com/nBg5opb)
