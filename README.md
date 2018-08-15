@@ -22,4 +22,4 @@ WooCommerce Custom Order Status
 
 ![List Status](https://i.imgur.com/EH6ZCAJ.png)
 ![Update Status](https://i.imgur.com/U7cvOti.png)
-![Order with Status](https://i.imgur.com/2AuvdsD.png)
+![Order with Status](https://i.imgur.com/TBt1bA8.png)
